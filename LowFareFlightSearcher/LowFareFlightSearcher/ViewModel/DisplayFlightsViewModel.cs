@@ -1,4 +1,5 @@
-﻿using LowFareFlightSearcher.Model;
+﻿using LowFareFlightSearcher.Base;
+using LowFareFlightSearcher.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,25 @@ using System.Threading.Tasks;
 
 namespace LowFareFlightSearcher.ViewModel
 {
-	class DisplayFlightsViewModel
+	class DisplayFlightsViewModel : NotifyPropertyChanged
 	{
-		public IEnumerable<FlightResult> FlightResults { get; set; }
+		private IEnumerable<FlightResult> _flightResults;
+		public IEnumerable<FlightResult> FlightResults
+		{
+			get
+			{
+				return _flightResults;
+			}
+			set
+			{
+				_flightResults = value;
+				Notify();
+			}
+		}
+
+		public DisplayFlightsViewModel()
+		{
+
+		}
 	}
 }

@@ -9,7 +9,7 @@ namespace LowFareFlightSearcher.Model
 	{
 		private string _origin;
 		private string _destination;
-		private DateTime _departAt;
+		private DateTime _departsAt;
 		private DateTime _arrivesAt;
 		private int _connectingFlightsOutboundCount;
 		private int _connectingFlightsInboundCount;
@@ -20,7 +20,7 @@ namespace LowFareFlightSearcher.Model
 
 		public string Origin { get { return _origin; } set { _origin = value; Notify(); } }
 		public string Destination { get { return _destination; } set { _destination = value; Notify(); } }
-		public DateTime DepartsAt { get { return _departAt; } set { _departAt = value; Notify(); } }
+		public DateTime DepartsAt { get { return _departsAt; } set { _departsAt = value; Notify(); } }
 		public DateTime ArrivesAt { get { return _arrivesAt; } set { _arrivesAt = value; Notify(); } }
 		public int ConnectingFlightsOutboundCount { get { return _connectingFlightsOutboundCount; } set { _connectingFlightsOutboundCount = value; Notify(); } }
 		public int ConnectingFlightsInboundCount { get { return _connectingFlightsInboundCount; } set { _connectingFlightsInboundCount = value; Notify(); } }

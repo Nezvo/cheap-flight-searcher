@@ -12,6 +12,8 @@ namespace LowFareFlightSearcher.Business
 {
 	static class AirportManager
 	{
+		static Dictionary<string, IEnumerable<AirportAutocomplete>> IataCache = new Dictionary<string, IEnumerable<AirportAutocomplete>>();
+
 		private const string AmadeusAutocompleteUri = "https://api.sandbox.amadeus.com/v1.2/airports/autocomplete";
 		public static IEnumerable<string> GetCpuntries()
 		{

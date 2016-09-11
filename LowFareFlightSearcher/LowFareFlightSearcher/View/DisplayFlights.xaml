@@ -77,11 +77,11 @@
               ColumnHeaderToolTip="Employee Information">
 				<GridViewColumn DisplayMemberBinding="{Binding Path=Origin}" Header="Origin" Width="100"/>
 				<GridViewColumn DisplayMemberBinding="{Binding Path=Destination}" Header="Destination" Width="100"/>
-				<GridViewColumn DisplayMemberBinding="{Binding Path=DepartAt}" Header="Depart At" Width="70"/>
-				<GridViewColumn DisplayMemberBinding="{Binding Path=ArriveAt}" Header="Arrive At" Width="70"/>
+				<GridViewColumn DisplayMemberBinding="{Binding Path=DepartsAt}" Header="Depart At" Width="70"/>
+				<GridViewColumn DisplayMemberBinding="{Binding Path=ArrivesAt}" Header="Arrive At" Width="70"/>
 				<GridViewColumn DisplayMemberBinding="{Binding Path=ConnectingFlightsOutboundCount}" Header="Flights Outbound" Width="100"/>
 				<GridViewColumn DisplayMemberBinding="{Binding Path=ConnectingFlightsInboundCount}" Header="Flights Inbound" Width="100"/>
-				<GridViewColumn DisplayMemberBinding="{Binding Path=PassengersCount}" Header="Passengers" Width="65"/>
+				<GridViewColumn DisplayMemberBinding="{Binding Path=PassengerCount}" Header="Passengers" Width="65"/>
 				<GridViewColumn DisplayMemberBinding="{Binding Path=Currency}" Header="Currency" Width="60"/>
 				<GridViewColumn DisplayMemberBinding="{Binding Path=TotalPrice}" Header="TotalCost" Width="60"/>
 			</GridView>

@@ -50,16 +50,18 @@ namespace LowFareFlightSearcher.Commands
 			//Console.WriteLine(_viewModel.SelectedCountryDestination);
 			//Console.WriteLine(_viewModel.FlightSearch.Currency);
 			FlightsResults flightsResults = Task.Run(() => Submit()).Result;
-
+			IList<FlightResult> results = Result(flightsResults);
 			DisplayFlights displayFlightsWindow = new DisplayFlights();
+			((DisplayFlightsViewModel)displayFlightsWindow.DataContext).FlightResults = results;
+			displayFlightsWindow.ShowDialog();
 		}
 
-		public IList<FlightResult> Result(FlightsResults o)
+		public IList<FlightResult> Result(FlightsResults oResults)
 		{
 			//List<Tuple<string, IEnumerable<Flight>, IEnumerable<Flight>>> test = new List<Tuple<string, IEnumerable<Flight>, IEnumerable<Flight>>>();
 			IList<FlightResult> retVal = new List<FlightResult>();
 
-			foreach (Result item in o.Results)
+			foreach (Result item in oResults.Results)
 			{
 				Itinerary itinerary = item.Itineraries.FirstOrDefault();
 				Flight outboundFlight = null;
@@ -78,20 +80,24 @@ namespace LowFareFlightSearcher.Commands
 
 				FlightResult itemresult = new FlightResult();
 				itemresult.TotalPrice = Decimal.Parse(item.Fare.TotalPrice);
-				itemresult.Currency = o.Currency;
+				itemresult.Currency = oResults.Currency;
 				itemresult.ConnectingFlightsInboundCount = inboundCount;
 				itemresult.ConnectingFlightsOutboundCount = outboundCount;
 
-				if(outboundFlight != null)
+				if (outboundFlight != null)
 					itemresult.DepartsAt = DateTime.Parse(outboundFlight.DepartsAt);
 
-				if(inboundFlight != null)
-				itemresult.ArrivesAt = DateTime.Parse(inboundFlight.DepartsAt);
+				if (inboundFlight != null)
+					itemresult.ArrivesAt = DateTime.Parse(inboundFlight.DepartsAt);
 
+				itemresult.PassengerCount = _viewModel.FlightSearch.AdultsNumber + _viewModel.FlightSearch.ChildrenNumber + _viewModel.FlightSearch.InfantsNumber;
+				itemresult.Origin = _viewModel.FlightSearch.Origin;
+				itemresult.Destination = _viewModel.FlightSearch.Destination;
 
-
+				retVal.Add(itemresult);
 				//test.Add(new Tuple<string, IEnumerable<Flight>, IEnumerable<Flight>>(money, inboundFlights, outboundFlights));
 			}
+			return retVal;
 		}
 
 		public async Task<FlightsResults> Submit()
