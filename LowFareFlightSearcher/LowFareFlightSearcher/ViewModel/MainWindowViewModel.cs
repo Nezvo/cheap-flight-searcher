@@ -110,10 +110,6 @@ namespace LowFareFlightSearcher.ViewModel
 		//private FlightsResults _FlightsResults;
 		public FlightsResults FlightsResults{ get; set; }
 
-		//private Airports _Airports;
-		//public Airports Airports{ get; }
-
-		//private AirportAutocomplete _AirportAutocomplete;
 		public AirportAutocomplete AirportAutocomplete{	get; set;}
 
 		public string GetFlightParametersUrl()

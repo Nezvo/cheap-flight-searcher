@@ -18,6 +18,8 @@ namespace LowFareFlightSearcher.Commands
 	class SearchCommand : ICommand
 	{
 		private const string AmadeusFlightUri = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search";
+		static Dictionary<string, FlightsResults> FlightsCache = new Dictionary<string, FlightsResults>();
+
 		private MainWindowViewModel _viewModel;
 		public SearchCommand(MainWindowViewModel viewModel)
 		{
@@ -103,19 +105,41 @@ namespace LowFareFlightSearcher.Commands
 		public async Task<FlightsResults> Submit()
 		{
 			FlightsResults retVal = null;
-			using (HttpClient client = new HttpClient())
+			string key = generateUniqueKey();
+
+			if (FlightsCache.ContainsKey(key))
 			{
-				client.BaseAddress = new Uri(AmadeusFlightUri);
-				client.DefaultRequestHeaders.Accept.Clear();
-				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-				HttpResponseMessage response = await client.GetAsync(_viewModel.GetFlightParametersUrl());
-
-				if (response.IsSuccessStatusCode)
+				retVal = FlightsCache[key];
+			}
+			else
+			{
+				using (HttpClient client = new HttpClient())
 				{
-					retVal = await response.Content.ReadAsAsync<FlightsResults>();
+					client.BaseAddress = new Uri(AmadeusFlightUri);
+					client.DefaultRequestHeaders.Accept.Clear();
+					client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+					HttpResponseMessage response = await client.GetAsync(_viewModel.GetFlightParametersUrl());
+
+					if (response.IsSuccessStatusCode)
+					{
+						retVal = await response.Content.ReadAsAsync<FlightsResults>();
+						FlightsCache.Add(key, retVal);
+					}
 				}
 			}
+			return retVal;
+		}
+
+		public string generateUniqueKey()
+		{
+			string retVal = null;
+			retVal = _viewModel.FlightSearch.Origin + _viewModel.FlightSearch.Destination
+				+ _viewModel.FlightSearch.DepartureDate.ToString("yyyy-MM-dd") 
+				+ _viewModel.FlightSearch.ReturnDate.ToString("yyyy-MM-dd")
+				+ _viewModel.FlightSearch.Currency + _viewModel.FlightSearch.AdultsNumber
+				+ _viewModel.FlightSearch.ChildrenNumber + _viewModel.FlightSearch.InfantsNumber
+				+ _viewModel.FlightSearch.Currency;
 			return retVal;
 		}
 

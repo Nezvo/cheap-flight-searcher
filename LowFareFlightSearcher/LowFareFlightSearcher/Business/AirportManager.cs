@@ -24,7 +24,7 @@ namespace LowFareFlightSearcher.Business
 		public static async Task<IEnumerable<AirportAutocomplete>> GetIataCodes(string parameters)
 		{
 			IEnumerable<AirportAutocomplete> retVal = null;
-			string key = parameters.Substring(parameters.Length);
+			string key = parameters.Substring(parameters.Length - 2);
 
 			if (IataCache.ContainsKey(key))
 			{
