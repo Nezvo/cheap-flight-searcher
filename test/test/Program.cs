@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace test
 {
 	class Program
 	{
+		public const string UrlApi = "https://api.sandbox.amadeus.com/v1.2/flights/low-fare-search";
+		public const string ApiKey = "crI0rvRbZjGlOo2HVBMBRiwSlA0SGbdI";
+
 		static void Main(string[] args)
 		{
 
@@ -38,17 +43,43 @@ namespace test
 				elements = i.Split(',');
 				countries.Add(elements[3]);
 
-				if (elements[4] == "Croatia" && !string.IsNullOrWhiteSpace(elements[4]))
-				{
-					result.Add(elements[1] + ", " + elements[2] + "-" + elements[4]);
-				}
+				//if (elements[3] == "Croatia" && !string.IsNullOrWhiteSpace(elements[4]))
+				//{
+				//	result.Add(elements[2] + "-" + elements[4]);
+				//}
 			}
 			);
 
-			List<string> distinctCountries = countries.Distinct().OrderBy(i => i).ToList();
-			distinctCountries.ForEach(i => Console.WriteLine(i));
+			//List<string> distinctCountries = countries.Distinct().OrderBy(i => i).ToList();
+			//distinctCountries.ForEach(i => Console.WriteLine(i));
 			//result.ForEach(i => Console.WriteLine(i));
 
+			//RootObject rootObject = GetDataAsync().Result;
+		}
+
+		static async Task<RootObject> GetDataAsync(FlightSearch search)
+		{
+			RootObject rootObject = null;
+			StringBuilder sb = new StringBuilder();
+
+			sb.AppendFormat($"origin={0}");
+			string s = $"origin={2}";
+
+			using (HttpClient client = new HttpClient())
+			{
+				client.BaseAddress = new Uri(UrlApi);
+				client.DefaultRequestHeaders.Accept.Clear();
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+				HttpResponseMessage response = await client.GetAsync(search.GetParametersUrl(ApiKey));
+
+				if (response.IsSuccessStatusCode)
+				{
+					rootObject = await response.Content.ReadAsAsync<RootObject>();
+				}
+			}
+
+			return rootObject;
 		}
 	}
 }
