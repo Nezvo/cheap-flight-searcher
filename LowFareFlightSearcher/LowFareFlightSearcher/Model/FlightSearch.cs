@@ -11,14 +11,8 @@ namespace LowFareFlightSearcher.Model
 {
 	class FlightSearch : NotifyPropertyChanged
 	{
-		private MainWindowViewModel _viewModel;
-		public FlightSearch(MainWindowViewModel viewModel)
-		{
-			_viewModel = viewModel;
-		}
-
-		private string _origin = "daw";
-		private string _destination = "daw";
+		private string _origin;
+		private string _destination;
 		private DateTime _departureDate = DateTime.Now;
 		private DateTime _returnDate = DateTime.Now;
 		private int _adultsNumber = 1;
@@ -36,21 +30,5 @@ namespace LowFareFlightSearcher.Model
 		public int InfantsNumber { get { return _infantsNumber; } set { _infantsNumber = value; Notify(); } }
 		public string Currency { get { return _currency; } set { _currency = value; Notify(); } }
 
-
-		public bool CanUpdate()
-		{
-			if (string.IsNullOrEmpty(this._origin) || string.IsNullOrEmpty(this._destination) || string.IsNullOrEmpty(this._currency) || this._departureDate == null || this._returnDate == null)
-			{
-				return false;
-			}
-			else if (this._departureDate < DateTime.Now || this._returnDate < this._departureDate)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
 	}
 }

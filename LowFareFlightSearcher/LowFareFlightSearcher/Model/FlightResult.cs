@@ -7,13 +7,6 @@ namespace LowFareFlightSearcher.Model
 {	
 	class FlightResult : NotifyPropertyChanged
 	{
-		private MainWindowViewModel _viewModel;
-
-		public FlightResult(MainWindowViewModel viewModel)
-		{
-			_viewModel = viewModel;
-		}
-
 		private string _origin;
 		private string _destination;
 		private DateTime _departAt;

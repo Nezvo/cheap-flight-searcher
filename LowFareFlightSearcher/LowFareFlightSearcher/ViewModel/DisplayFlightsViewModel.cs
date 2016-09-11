@@ -1,0 +1,14 @@
+﻿using LowFareFlightSearcher.Model;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LowFareFlightSearcher.ViewModel
+{
+	class DisplayFlightsViewModel
+	{
+		public IEnumerable<FlightResult> FlightResults { get; set; }
+	}
+}

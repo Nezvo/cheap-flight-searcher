@@ -4,15 +4,8 @@ using System.Collections.Generic;
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class RootObject
+	class FlightsResults
 	{
-		private MainWindowViewModel _viewModel;
-
-		public RootObject(MainWindowViewModel viewModel)
-		{
-			_viewModel = viewModel;
-		}
-
 		[JsonProperty("currency")]
 		public string Currency { get; set; }
 		[JsonProperty("results")]
