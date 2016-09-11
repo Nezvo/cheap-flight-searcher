@@ -24,21 +24,29 @@ namespace LowFareFlightSearcher.Business
 		public static async Task<IEnumerable<AirportAutocomplete>> GetIataCodes(string parameters)
 		{
 			IEnumerable<AirportAutocomplete> retVal = null;
+			string key = parameters.Substring(parameters.Length);
 
-			using (HttpClient client = new HttpClient())
+			if (IataCache.ContainsKey(key))
 			{
-				client.BaseAddress = new Uri(AmadeusAutocompleteUri);
-				client.DefaultRequestHeaders.Accept.Clear();
-				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-				HttpResponseMessage response = await client.GetAsync(parameters);
-
-				if (response.IsSuccessStatusCode)
+				retVal = IataCache[key];
+			}
+			else
+			{
+				using (HttpClient client = new HttpClient())
 				{
-					retVal = await response.Content.ReadAsAsync<IEnumerable<AirportAutocomplete>>();
+					client.BaseAddress = new Uri(AmadeusAutocompleteUri);
+					client.DefaultRequestHeaders.Accept.Clear();
+					client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+					HttpResponseMessage response = await client.GetAsync(parameters);
+
+					if (response.IsSuccessStatusCode)
+					{
+						retVal = await response.Content.ReadAsAsync<IEnumerable<AirportAutocomplete>>();
+						IataCache.Add(key, retVal);
+					}
 				}
 			}
-
 			return retVal;
 		}
 	}
