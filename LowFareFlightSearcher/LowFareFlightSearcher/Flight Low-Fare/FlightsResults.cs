@@ -1,10 +1,9 @@
-﻿using LowFareFlightSearcher.ViewModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class FlightsResults
+	public class FlightsResults
 	{
 		[JsonProperty("currency")]
 		public string Currency { get; set; }

@@ -2,7 +2,7 @@
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class Restrictions
+	public class Restrictions
 	{
 		[JsonProperty("refundable")]
 		public bool Refundable { get; set; }

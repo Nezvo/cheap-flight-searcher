@@ -2,7 +2,7 @@
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class Fare
+	public class Fare
 	{
 		[JsonProperty("total_price")]
 		public string TotalPrice { get; set; }

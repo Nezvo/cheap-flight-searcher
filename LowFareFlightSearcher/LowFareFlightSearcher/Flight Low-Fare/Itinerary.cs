@@ -2,7 +2,7 @@
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class Itinerary
+	public class Itinerary
 	{
 		[JsonProperty("outbound")]
 		public Outbound Outbound { get; set; }

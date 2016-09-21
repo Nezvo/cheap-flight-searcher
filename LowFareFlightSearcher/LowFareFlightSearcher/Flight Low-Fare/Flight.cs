@@ -2,7 +2,7 @@
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class Flight
+	public class Flight
 	{
 		[JsonProperty("departs_at")]
 		public string DepartsAt { get; set; }

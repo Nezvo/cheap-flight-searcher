@@ -2,7 +2,7 @@
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class Origin
+	public class Origin
 	{
 		[JsonProperty("airport")]
 		public string Airport { get; set; }

@@ -1,9 +1,8 @@
-﻿using LowFareFlightSearcher.ViewModel;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace LowFareFlightSearcher.Airport_Autocomplete
 {
-	class AirportAutocomplete
+	public class AirportAutocomplete
 	{
 		[JsonProperty("value")]
 		public string Value { get; set; }

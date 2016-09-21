@@ -6,96 +6,75 @@ using LowFareFlightSearcher.Flight_Low_Fare;
 using LowFareFlightSearcher.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace LowFareFlightSearcher.ViewModel
 {
-	internal class MainWindowViewModel : NotifyPropertyChanged
+	public class MainWindowViewModel : NotifyPropertyChanged
 	{
+		public const string ApiKey = "crI0rvRbZjGlOo2HVBMBRiwSlA0SGbdI";
+
 		private string _selectedCountryOrigin;
 		private string _selectedCountryDestination;
-		private IEnumerable<AirportAutocomplete> _iataOrigin;
-		private IEnumerable<AirportAutocomplete> _iataDestination;
-		
-		public const string ApiKey = "crI0rvRbZjGlOo2HVBMBRiwSlA0SGbdI";
+		//private IEnumerable<AirportAutocomplete> _iataOrigin;
+		//private IEnumerable<AirportAutocomplete> _iataDestination;
+		private SearchCommand _searchCommand;
+
 		public IList<string> Currency { get; set; }
 		public IEnumerable<string> Countries { get; set; }
+		public FlightsResults FlightsResults { get; set; }
+		public AirportAutocomplete AirportAutocomplete { get; set; }
+		public FlightSearch FlightSearch { get; }
+		public FlightResult FlightResult { get; }
+
 		public IEnumerable<AirportAutocomplete> IataOrigin
 		{
 			get
 			{
-				return _iataOrigin;
+				return Task.Run(() => AirportManager.GetIataCodes(GetAirportOriginParametersUrl())).Result;
 			}
-			set
-			{
-				_iataOrigin = value;
-				Notify();
-			}
+			//set
+			//{
+			//	_iataOrigin = value;
+			//	Notify();
+			//}
 		}
+
 		public IEnumerable<AirportAutocomplete> IataDestination
 		{
 			get
 			{
-				return _iataDestination;
+				return Task.Run(() => AirportManager.GetIataCodes(GetAirportDestinationParametersUrl())).Result;
 			}
-			set
-			{
-				_iataDestination = value;
-				Notify();
-			}
+			//set
+			//{
+			//	_iataDestination = value;
+			//	Notify();
+			//}
 		}
+
 		public string SelectedCountryOrigin
 		{
-			get
-			{
-				return _selectedCountryOrigin;
-			}
+			get { return _selectedCountryOrigin; }
 			set
 			{
 				_selectedCountryOrigin = value;
-				IataOrigin = Task.Run(() => AirportManager.GetIataCodes(GetAirportOriginParametersUrl())).Result;
+				Notify("IataOrigin");
+				//IataOrigin = Task.Run(() => AirportManager.GetIataCodes(GetAirportOriginParametersUrl())).Result;
 			}
 		}
+
 		public string SelectedCountryDestination
 		{
-			get
-			{
-				return _selectedCountryDestination;
-			}
+			get { return _selectedCountryDestination; }
 			set
 			{
 				_selectedCountryDestination = value;
-				IataDestination = Task.Run(() => AirportManager.GetIataCodes(GetAirportDestinationParametersUrl())).Result;
+				Notify("IataDestination");
+				//IataDestination = Task.Run(() => AirportManager.GetIataCodes(GetAirportDestinationParametersUrl())).Result;
 			}
 		}
 
-		public MainWindowViewModel()
-		{
-			Currency = new List<string>() { "HRK", "EUR", "USD" };
-			Countries = AirportManager.GetCpuntries();
-			//_FlightSearch = new FlightSearch();
-			//_FlightsResults = new FlightsResults();
-			//_FlightResult = new FlightResult();
-			//_AirportAutocomplete = new AirportAutocomplete();
-			//_Airports = new Airports();
-			FlightSearch = new FlightSearch();
-			FlightResult = new FlightResult();
-			AirportAutocomplete = new AirportAutocomplete();
-			//Airports = new Airports();
-		}
-
-		//IEnumerable<AirportAutocomplete>
-
-		//private FlightSearch _FlightSearch;
-		public FlightSearch FlightSearch{ get; }
-
-		//private FlightResult _FlightResult;
-		public FlightResult FlightResult{ get; }
-
-		private SearchCommand _searchCommand;
 		public SearchCommand SearchCommand
 		{
 			get
@@ -107,10 +86,15 @@ namespace LowFareFlightSearcher.ViewModel
 			}
 		}
 
-		//private FlightsResults _FlightsResults;
-		public FlightsResults FlightsResults{ get; set; }
-
-		public AirportAutocomplete AirportAutocomplete{	get; set;}
+		public MainWindowViewModel()
+		{
+			Currency = new List<string>() { "HRK", "EUR", "USD" };
+			Countries = AirportManager.GetCountries();
+			FlightSearch = new FlightSearch();
+			FlightResult = new FlightResult();
+			AirportAutocomplete = new AirportAutocomplete();
+			AirportManager.ReadFlights();
+		}
 
 		public string GetFlightParametersUrl()
 		{
@@ -121,22 +105,22 @@ namespace LowFareFlightSearcher.ViewModel
 
 		public string GetAirportOriginParametersUrl()
 		{
-			string parameters = $"?apikey={ApiKey}&country={SelectedCountryOrigin.Substring(SelectedCountryOrigin.Length - 2)}";
+			string parameters = String.Empty;
+
+			if(SelectedCountryOrigin != null)
+				parameters = $"?apikey={ApiKey}&country={SelectedCountryOrigin.Substring(SelectedCountryOrigin.Length - 2)}";
 
 			return parameters;
 		}
 
 		public string GetAirportDestinationParametersUrl()
 		{
-			string parameters = $"?apikey={ApiKey}&country={SelectedCountryDestination.Substring(SelectedCountryDestination.Length - 2)}";
+			string parameters = String.Empty;
+
+			if(_selectedCountryDestination != null)
+				parameters = $"?apikey={ApiKey}&country={SelectedCountryDestination.Substring(SelectedCountryDestination.Length - 2)}";
 
 			return parameters;
-		}
-
-		public int CountConnectingFlightsInbound()
-		{
-			List<Result> rezultati = FlightsResults.Results;
-			return 1;
 		}
 	}
 }

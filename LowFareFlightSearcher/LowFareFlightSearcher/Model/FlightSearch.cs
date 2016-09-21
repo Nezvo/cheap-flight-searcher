@@ -1,15 +1,9 @@
 ﻿using LowFareFlightSearcher.Base;
-using LowFareFlightSearcher.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LowFareFlightSearcher.Model
 {
-	class FlightSearch : NotifyPropertyChanged
+	public class FlightSearch : NotifyPropertyChanged
 	{
 		private string _origin;
 		private string _destination;
@@ -21,14 +15,84 @@ namespace LowFareFlightSearcher.Model
 		private string _currency;
 
 
-		public string Origin { get { return _origin; } set { _origin = value; Notify(); } }
-		public string Destination { get { return _destination; } set { _destination = value; Notify(); } }
-		public DateTime DepartureDate { get { return _departureDate; } set { _departureDate = value; Notify(); } }
-		public DateTime ReturnDate { get { return _returnDate; } set { _returnDate = value; Notify(); } }
-		public int AdultsNumber { get { return _adultsNumber; } set { _adultsNumber = value; Notify(); } }
-		public int ChildrenNumber { get { return _childrenNumber; } set { _childrenNumber = value; Notify(); } }
-		public int InfantsNumber { get { return _infantsNumber; } set { _infantsNumber = value; Notify(); } }
-		public string Currency { get { return _currency; } set { _currency = value; Notify(); } }
+		public string Origin
+		{
+			get { return _origin; }
+			set
+			{
+				_origin = value;
+				Notify();
+			}
+		}
 
+		public string Destination
+		{
+			get { return _destination; }
+			set
+			{
+				_destination = value;
+				Notify();
+			}
+		}
+
+		public DateTime DepartureDate
+		{
+			get { return _departureDate; }
+			set
+			{
+				_departureDate = value;
+				Notify();
+			}
+		}
+
+		public DateTime ReturnDate
+		{
+			get { return _returnDate; }
+			set
+			{
+				_returnDate = value;
+				Notify();
+			}
+		}
+
+		public int AdultsNumber
+		{
+			get { return _adultsNumber; }
+			set
+			{
+				_adultsNumber = value;
+				Notify();
+			}
+		}
+
+		public int ChildrenNumber
+		{
+			get { return _childrenNumber; }
+			set
+			{
+				_childrenNumber = value;
+				Notify();
+			}
+		}
+
+		public int InfantsNumber
+		{
+			get { return _infantsNumber; }
+			set
+			{
+				_infantsNumber = value;
+				Notify();
+			}
+		}
+
+		public string Currency
+		{
+			get { return _currency; }
+			set
+			{
+				_currency = value;
+				Notify();
+			}
+		}
 	}
 }

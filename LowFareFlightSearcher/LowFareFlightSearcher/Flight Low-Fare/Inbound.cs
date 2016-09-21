@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LowFareFlightSearcher.Flight_Low_Fare
 {
-	class Inbound
+	public class Inbound
 	{
 		[JsonProperty("flights")]
 		public List<Flight> Flights { get; set; }

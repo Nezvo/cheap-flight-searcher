@@ -6,29 +6,10 @@
 		xmlns:local="clr-namespace:LowFareFlightSearcher"
 		xmlns:vm="clr-namespace:LowFareFlightSearcher.ViewModel"
 		mc:Ignorable="d"
-		Title="MainWindow" Height="400" Width="800">
+		Title="MainWindow" Height="400" Width="800" Closing="Window_Closing">
 	<Window.DataContext>
 		<vm:MainWindowViewModel></vm:MainWindowViewModel>
 	</Window.DataContext>
-	<!--<Grid>
-		<ComboBox Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="120" SelectedItem="{Binding SelectedCountryOrigin, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Countries}" IsEditable="True"/>
-		<ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0" Height="25" ItemsSource="{Binding AirportAutocomplete.Value}" Width="120"/>
-		<ComboBox Margin="0,10,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" SelectedItem="{Binding SelectedCountryDestination}" ItemsSource="{Binding Countries}" Width="120" IsEditable="True"/>
-		<ComboBox HorizontalAlignment="Right" VerticalAlignment="Top" Height="25" Margin="0,50,10,0" Width="120"/>
-
-		<DatePicker HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0" Height="25"  SelectedDate="{Binding FlightSearch.DepartureDate}"/>
-		<DatePicker HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,90,10,0" Height="25"  SelectedDate="{Binding FlightSearch.ReturnDate}"/>
-
-		<TextBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0" Height="25"  Text="{Binding FlightSearch.AdultsNumber}" TextWrapping="Wrap" Width="120"/>
-		<TextBox HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,130,0,0" Height="25" Text="{Binding FlightSearch.ChildrenNumber}" TextWrapping="Wrap" Width="120"/>
-		<TextBox HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,130,10,0" Text="{Binding FlightSearch.InfantsNumber}" Height="25" TextWrapping="Wrap" Width="120"/>
-
-		<ComboBox HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,170,0,0" IsEditable="True" SelectedItem="{Binding FlightSearch.Currency}" ItemsSource="{Binding Currency}" Width="120" Height="25"/>
-		<Button HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,170,10,0" Command="{Binding TestCommand}" Content="Button" Width="350
-				" Height="50
-				"/>
-	</Grid>-->
-
 	<Grid Margin="0,0,0,0">
 		<Label Margin="20,20,0,0" Height="25" Width="75" Content="Origin" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
 		<ComboBox ItemsSource="{Binding Path=Countries}" SelectedItem="{Binding Path=SelectedCountryOrigin}" Margin="110,20,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150"></ComboBox>
