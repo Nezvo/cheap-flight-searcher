@@ -1,1 +1,1 @@
-# CheapFlightSearcher
+# Cheap Flight Searcher
